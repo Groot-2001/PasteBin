@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Pastebin is a website where users can store plain text or code snippets and share them with others by sending them a unique URL. It is often used by developers to share code snippets and collaborate on programming projects, but it can be used for a variety of other purposes as well.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Groot-2001/PasteBin.git"
+  },
+  "keywords": [
+    "paste",
+    "pastebin",
+    "bin"
+  ],
+  "author": "anonymous",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Groot-2001/PasteBin/issues"
+  },
+  "homepage": "https://github.com/Groot-2001/PasteBin#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.9.2"
+  }
+}
