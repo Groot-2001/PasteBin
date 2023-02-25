@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Groot-2001/PasteBin#readme",
   "dependencies": {
+    "body-parser": "^1.20.2",
     "express": "^4.18.2",
     "mongoose": "^6.9.2"
   }
