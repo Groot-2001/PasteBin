@@ -1,4 +1,5 @@
 {
+  "type": "commonjs",
   "name": "backend",
   "version": "1.0.0",
   "description": "Pastebin is a website where users can store plain text or code snippets and share them with others by sending them a unique URL. It is often used by developers to share code snippets and collaborate on programming projects, but it can be used for a variety of other purposes as well.",
@@ -24,7 +25,11 @@
   "homepage": "https://github.com/Groot-2001/PasteBin#readme",
   "dependencies": {
     "body-parser": "^1.20.2",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "mongoose": "^6.9.2"
+  },
+  "devDependencies": {
+    "chalk": "^4.1.2"
   }
 }
