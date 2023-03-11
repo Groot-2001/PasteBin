@@ -1,9 +1,10 @@
+import Auth from './Auth/Auth';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      PasteBin
+      <Auth />
     </div>
   );
 }
