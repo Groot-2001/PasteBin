@@ -44,7 +44,7 @@ const userLogin = async (req,res) =>{
     try {
         //find the user in db
         const user = await UserModel.findOne({email});
-
+        console.log(user);
         //check whether the user exist or not
         if(!user){
             return res.status(400).send({

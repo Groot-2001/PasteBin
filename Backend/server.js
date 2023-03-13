@@ -1,10 +1,21 @@
 const express = require('express')
+const helmet = require('helmet');
 const app = express()
 const status = require("./controller/get_status");
-const PORT = 3001;
+const {userLogin,userSignup} = require("./controller/user_controller");
 require('dotenv').config()
 const bodyParser = require('body-parser');
 const dbconn=require('./db');
+
+//setting up with Port
+const PORT = process.env.PORT || 3001;
+
+//Setting up with helmet
+app.use(helmet.hidePoweredBy());
+app.use(helmet.frameguard({action:'deny'}));
+app.use(helmet.xssFilter());
+app.use(helmet.noSniff());
+app.use(helmet.ieNoOpen());
 
 //database connection
 dbconn();
@@ -26,6 +37,8 @@ app.use((req, res, next) => {
 
 //Api Endpoints
 app.get('/', status);
+app.post('/signup',userSignup);
+app.post('/login',userLogin);
 
 //running listen event on server app
 app.listen(PORT, () => {
