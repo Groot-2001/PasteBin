@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const Schema = mongoose.Schema;
@@ -63,3 +64,33 @@ UserSchema.methods.isValidPassword = async function(password){
 UserSchema.index({username:1 , email:1});
 
 module.exports = mongoose.model("User_Model", UserSchema);
+=======
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const UserSchema= new Schema({
+    username:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    email:{
+        type:String,
+        unique:true,
+        match: /.+\@.+\..+/,
+        required:true
+    },
+    name:{
+        type:String,
+        required:true,
+    },
+    password:{
+        type:String,
+        required:true,
+        min:8
+    }
+},{timestamps:true});
+
+module.exports = mongoose.model('User_Model',UserSchema);
+
+>>>>>>> 3915391f59cfccc39dd3804737742f6a66a8618f

@@ -12,10 +12,13 @@ let termination = chalk.bold.magenta;
 
 //export this function and imported by server.js
 module.exports = function dbconn() {
+<<<<<<< HEAD
 
   //to ignore the deprecation warning 
   mongoose.set("strictQuery", false);
   
+=======
+>>>>>>> 3915391f59cfccc39dd3804737742f6a66a8618f
   //? Connect Mongoose with Database URL
   mongoose.connect(dbURL);
 

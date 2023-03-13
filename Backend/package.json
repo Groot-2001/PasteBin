@@ -6,7 +6,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+<<<<<<< HEAD
     "server": "node server.js --watch"
+=======
+    "serve": "node index.js"
+>>>>>>> 3915391f59cfccc39dd3804737742f6a66a8618f
   },
   "repository": {
     "type": "git",
@@ -24,12 +28,18 @@
   },
   "homepage": "https://github.com/Groot-2001/PasteBin#readme",
   "dependencies": {
+<<<<<<< HEAD
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "helmet": "^6.0.1",
     "jsonwebtoken": "^9.0.0",
+=======
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+>>>>>>> 3915391f59cfccc39dd3804737742f6a66a8618f
     "mongoose": "^6.9.2"
   },
   "devDependencies": {

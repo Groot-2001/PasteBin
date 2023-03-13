@@ -1,0 +1,1 @@
+<h1> Paste Bin </h1>

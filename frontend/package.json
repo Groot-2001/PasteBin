@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "paste-bin",
+=======
+  "name": "frontend",
+>>>>>>> 3915391f59cfccc39dd3804737742f6a66a8618f
   "version": "0.1.0",
   "private": true,
   "dependencies": {
