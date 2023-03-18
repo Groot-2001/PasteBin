@@ -1,11 +1,10 @@
 const express = require('express')
 const helmet = require('helmet');
 const app = express()
-const status = require("./controller/get_status");
-const {userLogin,userSignup} = require("./controller/user_controller");
 require('dotenv').config()
 const bodyParser = require('body-parser');
 const dbconn=require('./db');
+const userRoute = require('./api/UserAuth');
 
 //setting up with Port
 const PORT = process.env.PORT || 3001;
@@ -35,10 +34,15 @@ app.use((req, res, next) => {
   next();
 });
 
-//Api Endpoints
-app.get('/', status);
-app.post('/signup',userSignup);
-app.post('/login',userLogin);
+//Api Endpoints looks like
+//https://localhost:3001/api/signup
+app.use("/api",userRoute);
+
+
+//handling 404 error
+app.use('*',(req,res,next)=>{
+  res.status(404).json('Sorry, Page Not Found');
+})
 
 //running listen event on server app
 app.listen(PORT, () => {
