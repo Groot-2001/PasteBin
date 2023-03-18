@@ -28,7 +28,7 @@ const userSignup = async (req, res) => {
     const Isemail = await UserModel.findOne({ email });
 
     //If username and email already exists.
-    if (Isusername & Isemail) {
+    if (Isusername || Isemail) {
       return res.status(400).json({
         message: "This Username or emailId already has been used!, please try with different username or emailId.",
       });
