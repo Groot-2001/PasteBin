@@ -14,6 +14,12 @@ const userSignup = async (req, res) => {
       message: "Please fill the all required fields",
     });
   }
+  //If username exceeds 8 characters
+  if (username.length > 8) {
+    return res.status(400).json({
+      message: "Username must have atmost 8 characters.",
+    });
+  }
 
   try {
     /**
@@ -23,22 +29,17 @@ const userSignup = async (req, res) => {
           - If username meets certain criteria of length
     */
 
-    // find the username and email from the database 
-    const Isusername = await UserModel.findOne({ username });
-    const Isemail = await UserModel.findOne({ email });
+    // find the username and email from the database
+    const Isuser = await UserModel.findOne({
+      $or: [{ username }, { email }],
+    });
 
     //If username and email already exists.
-    if (Isusername || Isemail) {
+    if (Isuser.username || Isuser.email) {
       return res.status(400).json({
-        message: "This Username or emailId already has been used!, please try with different username or emailId.",
+        message:
+          "This Username or emailId already has been used!, please try with different username or emailId.",
       });
-    }
-
-    //If username exceeds 15 characters
-    if(username.length > 15){
-        return res.status(400).json({
-            message:"Username must have atmost 15 characters."
-        })
     }
 
     //creating the instance of model and saving the data in db
@@ -55,28 +56,55 @@ const userSignup = async (req, res) => {
     });
   } catch (error) {
     //incase any error generated from server side
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };
 
 const userLogin = async (req, res) => {
   //get the data from request body
-  const { email,username, password } = req.body;
+  const { email, username, password } = req.body;
+
+  /** multiple cases to handle
+   * C1: username + !email (valid)
+   * C2: email + !username (valid)
+   * C3: username + email (not valid)
+   * C4: !username + !email (not valid)
+   */
 
   try {
+    if ((!!email && !!username) || (!email && !username)) {
+      return res.status(400).json({
+        message:"Should provide either email or username.",
+        Note:"if both exists it's not a valid either!"
+      })
+    }
+  
+    if (!password) {
+      return res.status(400).json({
+        message:"Password is required."
+      })
+    }
     //find the user in db
-    const Isusername = await UserModel.findOne({ username });
-    const Isemail = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({
+      $or: [{ username }, { email }],
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Incorrect User Credentials",
+      });
+    }
 
     //If user has already exist
-    if (!Isusername & !Isemail){
+    if (!user.username || !user.email) {
       return res.status(404).json({
         message: "Username or email not found!, please register first.",
       });
     }
 
     //comparing the password if its correct or not
-    const validateUser = await bcrypt.compare(password, Isusername?Isusername.password:Isemail.password);
+    const validateUser = await bcrypt.compare(password, user.password);
 
     //if password is doesn't match with existed one
     if (!validateUser) {
@@ -87,12 +115,12 @@ const userLogin = async (req, res) => {
 
     //take identity of a user
     const userId = {
-      username: Isusername?Isusername.username:Isemail.username,
-      email: Isusername?Isusername.email:Isemail.email,
+      username: user.username,
+      email: user.email,
     };
 
     //generate token of authenticated user
-    const token = jwt.sign(userId,process.env.SECRET_TOKEN);
+    const token = jwt.sign(userId, process.env.SECRET_TOKEN);
 
     return res.status(200).json({
       message: "Logged In Successfully!",
@@ -100,7 +128,8 @@ const userLogin = async (req, res) => {
     });
   } catch (error) {
     //incase any error generated from server side
-    return res.status(500).json(error.message);
+    console.error(error);
+    return res.status(500).json({ message: "Internal Server Error" });
   }
 };
 

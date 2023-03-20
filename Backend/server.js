@@ -42,6 +42,7 @@ app.use("/api",userRoute);
 //handling 404 error
 app.use('*',(req,res,next)=>{
   res.status(404).json('Sorry, Page Not Found');
+  next();
 })
 
 //running listen event on server app
