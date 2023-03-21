@@ -1,10 +1,21 @@
 const express = require('express')
+const helmet = require('helmet');
 const app = express()
-const status = require("./controller/get_status");
-const PORT = 3001;
 require('dotenv').config()
 const bodyParser = require('body-parser');
 const dbconn=require('./db');
+const userRoute = require('./api/user_api.js');
+const pasteRoute = require('./api/paste_api.js');
+
+//setting up with Port
+const PORT = process.env.PORT || 3001;
+
+//Setting up with helmet
+app.use(helmet.hidePoweredBy());
+app.use(helmet.frameguard({action:'deny'}));
+app.use(helmet.xssFilter());
+app.use(helmet.noSniff());
+app.use(helmet.ieNoOpen());
 
 //database connection
 dbconn();
@@ -24,8 +35,16 @@ app.use((req, res, next) => {
   next();
 });
 
-//Api Endpoints
-app.get('/', status);
+//Api Endpoints looks like
+//https://localhost:3001/auth/signup
+app.use("/auth",userRoute);
+app.use("/api",pasteRoute);
+
+//handling 404 error
+app.use('*',(req,res,next)=>{
+  res.status(404).json('Sorry, Page Not Found');
+  next();
+})
 
 //running listen event on server app
 app.listen(PORT, () => {
