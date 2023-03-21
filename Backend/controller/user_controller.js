@@ -36,7 +36,7 @@ const userSignup = async (req, res) => {
 
     //If username or email already exists.
     if (Isuser) {
-      return res.status(400).json({
+      return res.status(409).json({
         message:
           "This Username or emailId already has been used!, please try with different username or emailId.",
       });

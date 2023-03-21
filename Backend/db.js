@@ -12,9 +12,9 @@ let termination = chalk.bold.magenta;
 
 //export this function and imported by server.js
 module.exports = function dbconn() {
-    //to ignore the deprecation warning 
-    mongoose.set("strictQuery", false);
-    
+  //to ignore the deprecation warning
+  mongoose.set("strictQuery", false);
+
   //? Connect Mongoose with Database URL
   mongoose.connect(dbURL);
 
