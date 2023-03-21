@@ -4,7 +4,8 @@ const app = express()
 require('dotenv').config()
 const bodyParser = require('body-parser');
 const dbconn=require('./db');
-const userRoute = require('./api/UserAuth');
+const userRoute = require('./api/user_api.js');
+const pasteRoute = require('./api/paste_api.js');
 
 //setting up with Port
 const PORT = process.env.PORT || 3001;
@@ -35,9 +36,9 @@ app.use((req, res, next) => {
 });
 
 //Api Endpoints looks like
-//https://localhost:3001/api/signup
-app.use("/api",userRoute);
-
+//https://localhost:3001/auth/signup
+app.use("/auth",userRoute);
+app.use("/api",pasteRoute);
 
 //handling 404 error
 app.use('*',(req,res,next)=>{

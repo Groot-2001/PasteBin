@@ -34,8 +34,8 @@ const userSignup = async (req, res) => {
       $or: [{ username }, { email }],
     });
 
-    //If username and email already exists.
-    if (Isuser.username || Isuser.email) {
+    //If username or email already exists.
+    if (Isuser) {
       return res.status(400).json({
         message:
           "This Username or emailId already has been used!, please try with different username or emailId.",
@@ -75,15 +75,15 @@ const userLogin = async (req, res) => {
   try {
     if ((!!email && !!username) || (!email && !username)) {
       return res.status(400).json({
-        message:"Should provide either email or username.",
-        Note:"if both exists it's not a valid either!"
-      })
+        message: "Should provide either email or username.",
+        Note: "if both exists it's not a valid either!",
+      });
     }
-  
+
     if (!password) {
       return res.status(400).json({
-        message:"Password is required."
-      })
+        message: "Password is required.",
+      });
     }
     //find the user in db
     const user = await UserModel.findOne({
@@ -91,13 +91,6 @@ const userLogin = async (req, res) => {
     });
 
     if (!user) {
-      return res.status(400).json({
-        message: "Incorrect User Credentials",
-      });
-    }
-
-    //If user has already exist
-    if (!user.username || !user.email) {
       return res.status(404).json({
         message: "Username or email not found!, please register first.",
       });
@@ -109,7 +102,7 @@ const userLogin = async (req, res) => {
     //if password is doesn't match with existed one
     if (!validateUser) {
       return res.status(401).json({
-        message: "Incorrect Password",
+        message: "Password doesn't match!",
       });
     }
 
