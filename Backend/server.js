@@ -38,11 +38,12 @@ app.use((req, res, next) => {
 //Api Endpoints looks like
 //https://localhost:3001/auth/signup
 app.use("/auth",userRoute);
+//https://localhost:3001/api/create_paste
 app.use("/api",pasteRoute);
 
 //handling 404 error
 app.use('*',(req,res,next)=>{
-  res.status(404).json('Sorry, Page Not Found');
+  res.status(404).json('Err:404, Page Not Found');
   next();
 })
 
