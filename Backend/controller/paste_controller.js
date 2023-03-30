@@ -10,7 +10,6 @@ const pasteCreate = async (req, res) => {
       message: "please fill the required field",
     });
   }
-  
   try {
     //creating and saving the new paste in the db.
     const paste = await PasteModel.create({
@@ -32,11 +31,19 @@ const pasteCreate = async (req, res) => {
 
 const pasteDelete = async (req, res) => {
   //get the id from request params
-  const id = req.params._id;
+  const id = req.params._id.toString();
 
   try {
     //if it's a valid ObjectId, proceed with `findByIdAndDelete` call.
     if (id.match(/^[0-9a-fA-F]{24}$/)) {
+      //check whether the id is exist or not
+      const Idexist = await PasteModel.findById(id);
+      if (!Idexist) {
+        return res.status(404).json({
+          error: "Id doesn't exist",
+        });
+      }
+
       //find and delete the document according to the id
       const deletedDoc = await PasteModel.findByIdAndDelete(id);
 
