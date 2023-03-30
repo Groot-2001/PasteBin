@@ -53,7 +53,7 @@ const pasteDelete = async (req, res) => {
       });
     } else {
       return res.status(404).json({
-        message: "document not found with your id!!",
+        message: "invalid id ,please enter correct id!!",
       });
     }
   } catch (error) {
