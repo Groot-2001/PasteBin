@@ -4,12 +4,11 @@ const Schema = mongoose.Schema;
 const PasteSchema= new Schema({
     username:{
         type:String,
-        unique:true
     },
     text:{
-        type:String 
+        type:String,
     }
-},{timestamps:true});
+},{timestamps:true,versionKey:false});
 
 module.exports = mongoose.model('Paste_Model',PasteSchema);
 

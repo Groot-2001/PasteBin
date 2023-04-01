@@ -8,6 +8,7 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       unique: true,
+      minlength:[8,"Username must have atmost 8 characters."],
     },
     email: {
       type: String,
