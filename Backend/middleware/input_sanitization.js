@@ -71,7 +71,7 @@ exports.validateUserLogin = [
   },
 ];
 exports.validatePaste = [
-  check("text").not().isEmpty().trim().isLength({max:1000}),
+  check("text").not().isEmpty().trim(),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
