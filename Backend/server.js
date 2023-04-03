@@ -22,15 +22,17 @@ app.use(helmet.ieNoOpen());
 //database connection
 dbconn();
 
+// parse application/json
+app.use(bodyParser.json({ limit: "10mb" }));
+
 // parse application/x-www-form-urlencoded
 app.use(
   bodyParser.urlencoded({
+    limit: "10mb",
     extended: true,
+    parameterLimit: 50000,
   })
 );
-
-// parse application/json
-app.use(bodyParser.json());
 
 // handling cors errors
 app.use((req, res, next) => {
@@ -54,7 +56,7 @@ app.use("*", (req, res, next) => {
 // body parser error catcher
 app.use((err, req, res, next) => {
   if (err) {
-    console.error(err);
+    console.error(err.type);
     res.status(400).json({ error: "error parsing data" });
   } else {
     next();
