@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const UserModel = require("../model/user_model");
+const mail_verify = require("../model/verification_mail_model");
+const send_email = require("./send_email");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 
@@ -85,10 +87,41 @@ const userLogin = async (req, res) => {
         message: "Password is required.",
       });
     }
+
     //find the user in db
     const user = await UserModel.findOne({
       $or: [{ username }, { email }],
     });
+
+    console.log(user.is_verify);
+
+    //what if user is not verified
+    if (!user.is_verify) {
+      //check whether the user is verified or not
+      let verificationToken = await mail_verify.findOne({
+        user: user.username,
+      });
+
+      console.log(verificationToken);
+
+      //if verificationToken doesn't exists
+      if (!verificationToken) {
+        const random_id = await bcrypt.genSalt(10);
+        //we will create new Token first and save it to the db.
+        verificationToken = await new mail_verify({
+          user: user.username,
+          verification_id: random_id,
+        }).save();
+      }
+      //creating url and pass the user credentials dynamically
+      const url = `${process.env.BASE_URL}auth/${verificationToken.user}/verify/${verificationToken.verification_id}`;
+      //we will call send_mail() method
+      await send_email(user.email, "Email Verification", url);
+
+      return res.status(401).json({
+        message: "An Email sent to your account please verify first",
+      });
+    }
 
     if (!user) {
       return res.status(404).json({
@@ -126,4 +159,46 @@ const userLogin = async (req, res) => {
   }
 };
 
-module.exports = { userSignup, userLogin };
+const emailVerify = async (req, res) => {
+  try {
+    const { user, id } = req.params;
+    //what if username is being invalid here
+    const Isuser = await UserModel.find({ username: user });
+
+    if (!Isuser) {
+      return res.status(404).json({
+        message: "Invalid verification Link",
+      });
+    }
+
+    //what if verification id is being invalid here
+    const verificationToken = await mail_verify.find({
+      user: Isuser.username,
+      verification_id: id,
+    });
+
+    if (!verificationToken) {
+      return res.status(400).json({
+        message: "Invalid verification Link",
+      });
+    }
+
+    //if credentials are verified then user should be verified
+    await UserModel.updateOne({
+      username: verificationToken.user,
+      is_verify: true,
+    });
+
+    //send the success message
+    res.status(200).json({
+      message: "Email verified successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+};
+
+module.exports = { userSignup, userLogin, emailVerify };
