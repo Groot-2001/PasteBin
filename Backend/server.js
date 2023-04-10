@@ -49,6 +49,8 @@ app.use("/api", pasteRoute);
 
 //handling 404 error
 app.use("*", (req, res, next) => {
+  console.error(req.path);
+  console.error(req.params);
   res.status(404).json("404,Sorry we couldn't find that page");
   next();
 });
