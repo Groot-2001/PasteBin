@@ -8,16 +8,11 @@ const {
   validatePasteDelete,
 } = require("../middleware/input_sanitization");
 
-pasteRoute.post(
-  "/create_paste",
-  validatePaste,
-  userAuthenticate,
-  pasteCreate
-);
+pasteRoute.post("/create_paste", userAuthenticate, validatePaste, pasteCreate);
 pasteRoute.delete(
   "/delete_paste/:_id",
-  validatePasteDelete,
   userAuthenticate,
+  validatePasteDelete,
   pasteDelete
 );
 

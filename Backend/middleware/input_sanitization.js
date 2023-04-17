@@ -73,6 +73,11 @@ exports.validateUserLogin = [
 exports.validatePaste = [
   check("text").not().isEmpty().trim(),
   (req, res, next) => {
+    if (!req.user) {
+      return res.status(422).json({
+        message: "Please login first!",
+      });
+    }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const err = errors.array();
@@ -89,6 +94,11 @@ exports.validatePaste = [
 exports.validatePasteDelete = [
   check("_id", "should be a valid document id").isMongoId(),
   (req, res, next) => {
+    if (!req.user) {
+      return res.status(422).json({
+        message: "Please login first!",
+      });
+    }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const err = errors.array();
@@ -113,6 +123,27 @@ exports.validateEmail = [
     .withMessage("Invalid Username"),
   param("id").trim().not().isEmpty().withMessage("Invalid Username"),
   (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const err = errors.array();
+      return res.status(422).json({
+        errors: err.map((error) => {
+          return error.msg;
+        }),
+      });
+    }
+    next();
+  },
+];
+
+exports.validateAccountDeletion = [
+  check("password").exists().withMessage("Password must be required!"),
+  (req, res, next) => {
+    if (!req.user) {
+      return res.status(422).json({
+        message: "Please login First!",
+      });
+    }
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const err = errors.array();

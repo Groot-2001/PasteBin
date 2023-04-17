@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const UserModel = require("../model/user_model");
+const PasteModel = require("../model/paste_model");
 const mail_verify = require("../model/verification_mail_model");
 const send_email = require("./send_email");
 const bcrypt = require("bcrypt");
@@ -93,7 +94,7 @@ const userLogin = async (req, res) => {
       $or: [{ username }, { email }],
     });
 
-    if (user === null || !user) {
+    if (!user) {
       return res.status(404).json({
         message: "Username or email not found!, please register first.",
       });
@@ -177,18 +178,14 @@ const emailVerify = async (req, res) => {
       });
     }
 
-    console.log(user, id);
-
     //what if verification id is being invalid here
     const verificationToken = await mail_verify.findOne({
       user,
       verification_id: id,
     });
 
-    console.log(verificationToken);
-
     //what if verificationToken is being invalid here
-    if (verificationToken === null || !verificationToken) {
+    if (!verificationToken) {
       return res.status(404).json({
         message: "Invalid verification Link",
       });
@@ -212,4 +209,59 @@ const emailVerify = async (req, res) => {
   }
 };
 
-module.exports = { userSignup, userLogin, emailVerify };
+const accountDelete = async (req, res) => {
+  //getting the password from req obj
+  const { password } = req.body;
+  const currentUser = req.user;
+
+  try {
+    if (!password || !currentUser) {
+      return res.status(404).json({
+        message: "please provide password or login first!",
+      });
+    }
+
+    //find the current user for verification of password.
+    const user = await UserModel.findOne({
+      username: currentUser.username,
+    });
+
+    //if user not found
+    if (!user) {
+      return res.status(404).json({
+        message: "User Not Found",
+      });
+    }
+
+    //comparing the password if its correct or not
+    const validateUser = await bcrypt.compare(password, user.password);
+
+    //if password is doesn't match with existed one
+    if (!validateUser) {
+      return res.status(401).json({
+        message: "Password doesn't match!",
+      });
+    }
+
+    //delete the current user from user_model
+    await UserModel.findOneAndDelete({
+      username: user.username,
+    });
+
+    //delete all the pastes of current User
+    await PasteModel.deleteMany({ username: user.username });
+
+    //delete all the mail_Verification timestamps as well.
+    await mail_verify.deleteMany({ user: user.username });
+
+    return res.status(200).json({
+      message: "Account is Deleted successfully",
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      error: "Internal Server Error",
+    });
+  }
+};
+module.exports = { userSignup, userLogin, emailVerify, accountDelete };
