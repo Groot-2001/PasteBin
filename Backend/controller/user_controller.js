@@ -97,6 +97,7 @@ const userLogin = async (req, res) => {
     if (!user) {
       return res.status(404).json({
         message: "Username or email not found!, please register first.",
+        user,
       });
     }
 
@@ -214,13 +215,13 @@ const accountDelete = async (req, res) => {
   const { password } = req.body;
   const currentUser = req.user;
 
-  try {
-    if (!password || !currentUser) {
-      return res.status(404).json({
-        message: "please provide password or login first!",
-      });
-    }
+  if (!password || !currentUser) {
+    return res.status(404).json({
+      message: "please provide password or login first!",
+    });
+  }
 
+  try {
     //find the current user for verification of password.
     const user = await UserModel.findOne({
       username: currentUser.username,
@@ -234,29 +235,38 @@ const accountDelete = async (req, res) => {
     }
 
     //comparing the password if its correct or not
-    const validateUser = await bcrypt.compare(password, user.password);
+    const ValidatePassword = await bcrypt.compare(password, user.password);
 
     //if password is doesn't match with existed one
-    if (!validateUser) {
+    if (!ValidatePassword) {
       return res.status(401).json({
         message: "Password doesn't match!",
       });
     }
 
-    //delete the current user from user_model
-    await UserModel.findOneAndDelete({
-      username: user.username,
-    });
-
-    //delete all the pastes of current User
-    await PasteModel.deleteMany({ username: user.username });
-
-    //delete all the mail_Verification timestamps as well.
-    await mail_verify.deleteMany({ user: user.username });
-
-    return res.status(200).json({
-      message: "Account is Deleted successfully",
-    });
+    Promise.all([
+      //delete the current user from user_model
+      UserModel.findOneAndDelete({
+        username: user.username,
+      }),
+      //delete all the pastes of current User
+      PasteModel.deleteMany({ username: user.username }),
+      //delete all the mail_Verification timestamps as well.
+      mail_verify.deleteMany({ user: user.username }),
+    ])
+      .then((data) => {
+        //if all work done then return 200 OK
+        return res.status(200).json({
+          message: "Account is Deleted successfully",
+          data,
+        });
+      })
+      .catch((Err) => {
+        console.error(Err);
+        return res.status(400).json({
+          message: "Bad Request...",
+        });
+      });
   } catch (error) {
     console.error(error);
     return res.status(500).json({
