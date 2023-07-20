@@ -1,8 +1,16 @@
-# Introduction [Backend]:
+# Table of Contents
+
+1. [Introduction](#introduction)  
+2. [Models](#models)
+3. [Api Endpoints](#api-endpoints)
+4. [Environment Setup](#environment-setup)
+5. [STATUS CODE](#status-code)
+
+## Introduction
 
 Pastebin is a website where users can store plain text or code snippets and share them with others by sending them a unique URL. It is often used by developers to share code snippets and collaborate on programming projects, but it can be used for a variety of other purposes as well.
 
-# Models
+## Models
 
 > 1. <strong>User Model</strong>
 
@@ -32,7 +40,7 @@ Pastebin is a website where users can store plain text or code snippets and shar
 | Verification_id | String |   true   |  true  |  None   |
 | createdAt       |  Date  |   None   |  None  | 48 Hour |
 
-# Api Endpoints
+## Api Endpoints
 
 > 1. <b>USER SPECIFIC API'S </b>
 >> 1. SIGNUP USER \
@@ -63,7 +71,7 @@ Pastebin is a website where users can store plain text or code snippets and shar
  ` \
 >> Params: _id \
 >> Authentication Required : Yes
-# Environment Setup
+## Environment Setup
 > PORT = Port \
 > DATABASE_URI = Database Url \
 > SECRET_TOKEN = Your Secret Token  \
@@ -75,7 +83,7 @@ Pastebin is a website where users can store plain text or code snippets and shar
 > USER = Your Email Address \
 > PASS = Your Password 
 
-# STATUS CODE
+## STATUS CODE
 >  The status-code element is a three-digit integer code giving the
    result of the attempt to understand and satisfy the request.
  
