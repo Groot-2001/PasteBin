@@ -1,0 +1,113 @@
+/* Hero_Section */
+.Hero {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-width: 450px;
+    min-height: 90vh;
+    overflow: hidden;
+}
+
+.Hero::before {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: -50%;
+    width: 100%;
+    height: 100%;
+    background-color: #E3F4F4;
+    transform-origin: right;
+    transform: skewY(8deg);
+}
+
+.Hero::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background-color: #E3F4F4;
+    transform-origin: left;
+    transform: skewY(-8deg);
+    z-index: -1;
+}
+
+.Hero_Container {
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 1rem;
+}
+
+.Hero_Container .Hero_header {
+    color: rgba(10, 9, 58, 0.952);
+    margin: 2rem;
+    max-width: 400px;
+}
+
+.Hero_Container .Hero_left {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.Hero_subheader {
+    align-self: start;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: rgba(66, 66, 66, 0.753);
+    max-width: 400px;
+}
+
+.Join_button {
+    cursor: pointer;
+    background: rgb(14, 0, 53);
+    color: rgb(255, 255, 255);
+    padding: 1em;
+    font: 1em sans-serif;
+    font-weight: bold;
+    border: none;
+    border-radius: 1em;
+    margin-left: 2rem;
+    width: 80px;
+    align-self: start;
+    box-shadow: 5px 10px #888888;
+
+}
+
+.Hero_right {
+    position: relative;
+    background-color: rgb(0, 62, 116);
+    padding: 1rem;
+    border-radius: 50%;
+}
+
+.cropped-image {
+    min-width: var(--image-size);
+    min-height: var(--image-size);
+    background-image: url("../../../public/Assets/Img/Art.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 74% 35% / 50%;
+}
+
+/* hover effects */
+.cropped-image:hover {
+    transform: rotate(-20deg);
+    box-shadow: inset 0px 0px 20px 20px white;
+}
+
+.Join_button:hover {
+    border: none;
+    box-shadow: 5px 10px #0071bd;
+}
+
+
+/* Making Hero section Responsive*/
