@@ -1,0 +1,32 @@
+/* Footer_Section */
+.Footer_Container {
+    display: flex;
+    position: relative;
+    min-width: 400px;
+    min-height: 10vh;
+    background: #00233fde;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+
+}
+
+.Footer_header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin: 0;
+}
+
+.Footer-content {
+    display: flex;
+    color: white;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
