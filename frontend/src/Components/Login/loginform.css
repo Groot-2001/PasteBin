@@ -1,0 +1,106 @@
+.main_container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../../../public/Assets/Img/rippedPaper.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    padding: 10px 20px;
+    transition: transform 0.2s;
+    text-align: center;
+    min-width: 350px;
+}
+
+.main #logo {
+    background: -webkit-linear-gradient(45deg, #09009f, #00ff95 80%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.form_container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.main #tag {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    color: rgba(10, 9, 58, 0.952);
+
+}
+
+label {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    text-align: left;
+    color: #555;
+    font-weight: bold;
+}
+
+
+input {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.submit {
+    font-weight: bold;
+    color: green;
+    padding: 0.3em;
+    border: 2px dashed green;
+    margin-bottom: 15px;
+    background-color: white;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+.submit-section p {
+    margin: 0px;
+    font-weight: bold;
+    color: #555
+}
+
+.acc {
+    font-weight: bold;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    padding: 0.3em;
+    border: 1px solid black;
+    background-color: #4CAF50;
+}
+
+.submit:hover {
+    background-color: #4CAF50;
+    color: white;
+}

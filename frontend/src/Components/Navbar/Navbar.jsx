@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import "./navbar.css";
 
 const SVGBIN = (props) => (
@@ -24,8 +26,8 @@ function Navbar() {
                 PasteBin <SVGBIN />
             </div>
             <div className="Nav-links">
-                <li>Login</li>
-                <li>Signup</li>
+                <Link to={"login"} className="li">Login</Link>
+                <Link to={"signup"} className="li">Signup</Link>
             </div>
         </div>
     );

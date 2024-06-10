@@ -1,4 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 import "./App.css";
 //import Auth from "./Auth/Auth";
@@ -12,7 +16,7 @@ function App() {
       <div className="App_Container">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/Signup" element={<SignupForm />} />
+          <Route path="/signup" element={<SignupForm />} />
           <Route path="/login" element={<LoginForm />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -26,7 +30,9 @@ const NotFound = () => {
   return (
     <div>
       <h2>404 Not Found</h2>
-      <p>Sorry, the page you are looking for does not exist.</p>
+      <p>
+        Sorry, the page you are looking for does not exist.
+      </p>
     </div>
   );
 };
