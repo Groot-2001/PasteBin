@@ -41,6 +41,7 @@
 }
 
 .Join_button {
+    text-decoration: none;
     cursor: pointer;
     background: rgb(14, 0, 53);
     color: rgb(255, 255, 255);
