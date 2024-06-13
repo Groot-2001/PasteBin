@@ -24,23 +24,33 @@ function SignupForm() {
             <div className="main">
                 <div className="form_container">
                     <h1 id='logo'>PasteBin <SVGBIN /></h1>
-                    <form action="">
+                    <form autoComplete='off' action="">
                         <label htmlFor="first">
                             Username:
                         </label>
                         <input type="text"
                             id="first"
                             name="first"
+                            value={""}
                             placeholder="Enter your Username" required
                         />
 
-                        <label htmlFor="first">
+                        <label htmlFor="second">
                             email:
                         </label>
                         <input type="email"
-                            id="first"
-                            name="first"
-                            placeholder="Enter your Username" required
+                            id="second"
+                            name="second"
+                            value={""}
+                            placeholder="Enter your email" required
+                        />
+                        <label htmlFor="three">
+                            name:
+                        </label>
+                        <input type="text"
+                            id="three"
+                            name="three"
+                            placeholder="Enter your name" required
                         />
 
                         <label htmlFor="password">
@@ -49,6 +59,7 @@ function SignupForm() {
                         <input type="password"
                             id="password"
                             name="password"
+                            value={""}
                             placeholder="Enter your Password" required />
 
                         <button type="submit" className='submit'>submit</button>

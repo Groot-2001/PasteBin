@@ -6,9 +6,10 @@ import {
 
 import "./App.css";
 //import Auth from "./Auth/Auth";
-import Home from "./Components/Home/Home";
+import Home from "./Services/Home/Home";
 import LoginForm from "./Components/Login/LoginForm";
 import SignupForm from "./Components/Signup/SignupForm";
+import Dashboard from "./Services/Dashboard/Dashboard";
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/signup" element={<SignupForm />} />
           <Route path="/login" element={<LoginForm />} />
+          <Route
+            path="/dashboard"
+            element={<Dashboard />}
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
