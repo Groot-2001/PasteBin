@@ -7,16 +7,16 @@ function Dashboard() {
     return (
         <div className='dashboard_container'>
             <Navbar />
-            <div classNameName="editor_container">
+            <div className="editor_container">
                 <textarea
-                    classNameName='main_editor'
+                    className='main_editor'
                     name="content"
                     id="content"
                     placeholder="Remember, be nice!"
                     autoFocus />
             </div>
-            <div classNameName="btn-controls">
-                <Link classNameName="paste-btn" to={"/paste"}>Create New Paste</Link>
+            <div className="btn-controls">
+                <Link className="paste-btn" to={"/paste"}>Create New Paste</Link>
             </div>
         </div>
     );
