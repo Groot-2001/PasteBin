@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import Navbar from '../../Components/Navbar/Navbar';
 import "./dashboard.css"
 
-function Dashboard() {
+function Dashboard({ isAuthenticated }) {
     return (
         <div className='dashboard_container'>
-            <Navbar />
+            <Navbar isAuthenticated={isAuthenticated} />
             <div className="editor_container">
                 <textarea
                     className='main_editor'

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Link } from 'react-router-dom';
 
 import "./loginform.css"
@@ -20,41 +20,50 @@ const SVGBIN = (props) => (
 
 function LoginForm() {
     return (
-        <div className='main_container'>
-            <div className="main">
-                <div className="form_container">
-                    <h1 id='logo'>PasteBin <SVGBIN /></h1>
-                    <h3 id='tag'>Enter your login credentials</h3>
-                    <form action="">
-                        <label htmlFor="first">
-                            Username:
-                        </label>
-                        <input type="text"
-                            id="first"
-                            name="first"
-                            placeholder="Enter your Username" required
-                        />
+        <Suspense fallback={<Loading />}>
+            <div className='main_container'>
+                <div className="main">
+                    <div className="form_container">
+                        <h1 id='logo'>PasteBin <SVGBIN /></h1>
+                        <h3 id='tag'>Enter your login credentials</h3>
+                        <form action="">
+                            <label htmlFor="first">
+                                Username:
+                            </label>
+                            <input type="text"
+                                id="first"
+                                name="first"
+                                placeholder="Enter your Username" required
+                            />
 
-                        <label htmlFor="password">
-                            Password:
-                        </label>
-                        <input type="password"
-                            id="password"
-                            name="password"
-                            placeholder="Enter your Password" required />
-                        <button type="submit" className='submit'>Login</button>
-                    </form>
-                    <div className="submit-section">
-                        <p>Not registered?</p><br />
-                        <Link to="/signup" className="acc">
-                            Create an account
-                        </Link>
+                            <label htmlFor="password">
+                                Password:
+                            </label>
+                            <input type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your Password" required />
+                            <button type="submit" className='submit'>Login</button>
+                        </form>
+                        <div className="submit-section">
+                            <p>Not registered?</p><br />
+                            <Link to="/signup" className="acc">
+                                Create an account
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </Suspense>
 
     );
 }
 
+function Loading() {
+    return <h1 style={{ color: "black" }}>🌀 Loading.........................</h1>;
+}
+
+
 export default LoginForm;
+
+

@@ -19,17 +19,21 @@ const SVGBIN = (props) => (
 );
 
 
-function Navbar() {
+function Navbar({ isAuthenticated }) {
     return (
         <div className='Navbar_Container'>
             <div className="header_icon">
                 PasteBin <SVGBIN />
             </div>
             <div className="Nav-links">
-                <Link to={"login"} className="li">Login</Link>
-                <Link to={"signup"} className="li">Signup</Link>
+                {isAuthenticated ? (
+                    <><Link to={"Api"} className="li">Api</Link><Link to={"/"} className="li">Logout</Link></>
+                )
+                    : (<> <Link to={"login"} className="li">Login</Link>
+                        <Link to={"signup"} className="li">Signup</Link></>)}
             </div>
         </div>
     );
 }
+
 export default Navbar;

@@ -2,6 +2,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Navigate,
 } from "react-router-dom";
 
 import "./App.css";
@@ -10,7 +11,7 @@ import Home from "./Services/Home/Home";
 import LoginForm from "./Components/Login/LoginForm";
 import SignupForm from "./Components/Signup/SignupForm";
 import Dashboard from "./Services/Dashboard/Dashboard";
-
+const isAuthenticated = true;
 function App() {
   return (
     <Router>
@@ -21,7 +22,15 @@ function App() {
           <Route path="/login" element={<LoginForm />} />
           <Route
             path="/dashboard"
-            element={<Dashboard />}
+            element={
+              isAuthenticated ? (
+                <Dashboard
+                  isAuthenticated={isAuthenticated}
+                />
+              ) : (
+                <Navigate to={"/login"} replace />
+              )
+            }
           />
           <Route path="*" element={<NotFound />} />
         </Routes>
